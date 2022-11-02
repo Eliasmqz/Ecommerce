@@ -1,0 +1,21 @@
+:root {
+    --background-color:#f7f7f8;
+    --background-color-dark: #1f1d2a;
+    --light-gray: #bfbfbf;
+    --very-lightgray: #e6e6e6;
+    --text-marked: #e94959;
+    --text-markeddark: #9adde0;
+    --footer-color-dark: #15141d;
+    --background-price-dark: #1b1a23;
+    --light-blie:#9adde0;   
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: var(--background-color);
+}
