@@ -42,56 +42,127 @@
             <section class="products">
                 <div class="products__container">
                     <ul class="products__filter">
-                        <li>
-                            <h3 class="product__filter__title">
+                        <li class="products__filter--data">
+                            <h3 class="product__filter--title">
                                 Show All
                             </h3>
-                            <p class="product__filter__description">
+                            <p class="product__filter--description">
                                 show all products
                             </p>
                         </li>
-                        <li>
-                            <h3 class="product__filter__title">
+                        <li class="products__filter--data">
+                            <h3 class="product__filter--title">
                                 Hoodies
                             </h3>
-                            <p class="product__filter__description">
+                            <p class="product__filter--description">
                                 3 products
                             </p>
                         </li>
-                        <li>
-                            <h3 class="product__filter__title">
+                        <li class="products__filter--data">
+                            <h3 class="product__filter--title">
                                 Shirts
                             </h3>
-                            <p class="product__filter__description">
+                            <p class="product__filter--description">
                                 4 products
                             </p>
                         </li>
-                        <li>
-                            <h3 class="product__filter__title">
+                        <li class="products__filter--data">
+                            <h3 class="product__filter--title">
                                 Sweatshirts
                             </h3>
-                            <p class="product__filter__description">
+                            <p class="product__filter--description">
                                 4 products
                             </p>
                         </li>
                     </ul>
                     <div class="products__content">
-                        <article class="product__hoddies_box">
+                        <article class="product__card product__hoddies_box">
                             <div class="product__img--container">
                                 <img src="./src/images/featured1.png" alt="product1" class="product__img">
                             </div>
                             <div class="product__info">
-                                
+                                <h2 class="product__price">
+                                    $14.00
+                                    <span class="product__stock"> | Stock: 7</span>
+                                </h2>
+                                <h3 class="product__name">Hoodies</h3>
+                                <button class="button product__button--add">+</button> 
                             </div>
-
+                        </article>
+                        <article class="product__card product__shirts_box">
+                            <div class="product__img--container">
+                                <img src="./src/images/featured2.png" alt="product2" class="product__img">
+                            </div>
+                            <div class="product__info">
+                                <h2 class="product__price">
+                                    $24.00
+                                    <span class="product__stock"> | Stock: 15</span>
+                                </h2>
+                                <h3 class="product__name">Shirts</h3>
+                                <button class="button product__button--add">+</button> 
+                            </div>
+                        </article>
+                        <article class="product__card product__sweatshirts_box">
+                            <div class="product__img--container">
+                                <img src="./src/images/featured3.png" alt="product3" class="product__img">
+                            </div>
+                            <div class="product__info">
+                                <h2 class="product__price">
+                                    $24.00
+                                    <span class="product__stock"> | Stock: 20</span>
+                                </h2>
+                                <h3 class="product__name">Sweatshirts</h3>
+                                <button class="button product__button--add">+</button> 
+                            </div>
                         </article>
                     </div>
                 </div>
             </section>
         </main>
-        <footer>
+        <footer class="footer">
+            <div class="footer__container">
+                <div class="footer__section">
+                    <h3 class="footer__section--title">Our information</h3>
+                    <ul class="footer__section--list">
+                        <li>Toluca-México</li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h3 class="footer__section--title">About Us</h3>
+                    <ul class="footer__section--links">
+                        <li><a href="#" class="footer__links">Support Center</a>
+                        </li>
+                        <li><a href="#" class="footer__links">Customer Support</a>
+                        </li>
+                        <li><a href="#" class="footer__links">About Us</a>
+                        </li>
+                        <li><a href="#" class="footer__links">Copyright</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h3 class="footer__section--title">Product</h3>
+                    <ul class="footer__section--links">
+                        <li><a href="#" class="footer__links">Hoodies</a>
+                        </li>
+                        <li><a href="#" class="footer__links">Shirts</a>
+                        </li>
+                        <li><a href="#" class="footer__links">Sweatshirts</a>
+                        </li>
+                    </ul>
+                </div>                
+                <div class="footer__section">
+                    <h3 class="footer__section--title">Our information</h3>
+                    <ul class="footer__social">
+                        <a href="https://www.facebook.com/" target="_blank" class="footer_social--links">Facebook Logo</a>
+                        <a href="https://www.twitter.com/" target="_blank" class="footer_social--links">Twitter Logo</a>
+                        <a href="https://www.instagram.com/" target="_blank" class="footer_social--links">Instagram Logo</a>
+                    </ul>
+                </div>
+            </div>
             
         </footer>
     </div>
+    <script src="./main.js" type="module"></script>
 </body>
 </html>
