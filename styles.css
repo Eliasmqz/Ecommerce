@@ -526,10 +526,12 @@ transition: background-color 0.5s;
     align-items: center;
 }
 
-
-
 .shopping__cart--show {
     transform: translateX(0);
+}
+
+.shopping__cart--title {
+    position: fixed;
 }
 
 .shopping__cart--items {
