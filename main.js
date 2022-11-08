@@ -5,8 +5,8 @@ const closeMenuBtn = document.querySelector(".close__menu--btn");
 const productsContent = document.querySelector(".products__content");
 const productsFilter = document.querySelector(".products__filter");
 const shoppingCartBtn = document.querySelector(".shopping__bag");
-const soppingCartItems = document.querySelector(".sopping__cart--items");
-const soppingCartTotal = document.querySelector(".sopping__cart--total");
+const shoppingCartItems = document.querySelector(".shopping__cart--items");
+const shoppingCartTotal = document.querySelector(".shopping__cart--total");
 const shoppingRestBtn = document.querySelector(".product__button--rest");
 const shoppingAddBtn = document.querySelector(".product__button--add");
 const shoppingDelBtn = document.querySelector(".product__button--del");
@@ -112,7 +112,7 @@ const printCart = () => {
         `
     })
 
-    soppingCartItems.innerHTML= html
+    shoppingCartItems.innerHTML= html
     
 
 }
