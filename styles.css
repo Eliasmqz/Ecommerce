@@ -513,7 +513,7 @@ transition: background-color 0.5s;
     width: 50%;
     height: 100vh;
     position:fixed;
-    bottom: 0;
+    top:0;
     right: 0;
     z-index: 100;
     box-shadow: -11px 0px 28px -20px rgba(0,0,0,0.75);
@@ -521,8 +521,8 @@ transition: background-color 0.5s;
     transition: transform 0.3s;
     display: flex;
     flex-direction: column;
-    padding: 5.5rem 2rem 2rem 2rem;
-    gap: 2rem;
+    padding: 6rem 2rem 2rem 2rem;
+    gap: 1.5rem;
     align-items: center;
 }
 
