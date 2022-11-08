@@ -284,6 +284,7 @@ svg {
 .container {
     background-color: var(--background-color);
     width: 100%;
+    overflow-y: hidden;
 }
 
 
@@ -521,28 +522,31 @@ transition: background-color 0.5s;
     transition: transform 0.3s;
     display: flex;
     flex-direction: column;
-    padding: 6rem 2rem 2rem 2rem;
+    padding: 8rem 2rem 2rem 2rem;
     gap: 1.5rem;
     align-items: center;
 }
 
 .shopping__cart--show {
     transform: translateX(0);
+    
 }
 
 .shopping__cart--title {
     position: fixed;
+    top: 80px;
 }
 
-.shopping__cart--items {
-    height: 70%;
-}
+
 
 .product__card--cart {
     display: flex;
+    width: 90%;
+    margin: auto;
     padding: .5rem;
+
     gap: 1rem;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
 
@@ -575,8 +579,8 @@ transition: background-color 0.5s;
 
 .counter__cart {
     display: flex;
-    width: 200px;
-    gap:3rem
+    width: 100%;
+    gap:2rem
 }
 
 .amount__card--cart {
