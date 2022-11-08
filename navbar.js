@@ -1,19 +1,24 @@
 const navMenu = document.querySelector(".nav__menu");
-const container = document.querySelector(".container");
+const shoppingCart = document.querySelector(".shopping__cart")
 
-
-export function hideShowMenu (button) {
+function hideShowMenu (button) {
     button.addEventListener("click", () => {
         navMenu.classList.toggle("nav__menu--show")
     })
 }
 
-export function headerScroll () {
+function showCart (button) {
+  button.addEventListener("click", () => {
+    shoppingCart.classList.toggle("shopping__cart--show")
+})
+}
+
+function headerScroll () {
     const navBar = document.querySelector('nav');
   
     if (navBar) {
       window.addEventListener('scroll', function () {
-        if (window.scrollY >= 64) {
+        if (window.scrollY >= 50) {
           navBar.classList.add('scroll__header')
         } else {
             navBar.classList.remove('scroll__header')
@@ -21,3 +26,11 @@ export function headerScroll () {
       })
     }
   }
+
+
+  export {
+    hideShowMenu,
+    showCart,
+    headerScroll
+  }
+

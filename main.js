@@ -1,9 +1,15 @@
-import { headerScroll, hideShowMenu } from "./navbar.js";
+import { headerScroll, hideShowMenu, showCart} from "./navbar.js";
 
 const mobileMenuBtn = document.querySelector(".mobile__menu--btn");
 const closeMenuBtn = document.querySelector(".close__menu--btn");
 const productsContent = document.querySelector(".products__content");
 const productsFilter = document.querySelector(".products__filter");
+const shoppingCartBtn = document.querySelector(".shopping__bag");
+const soppingCartItems = document.querySelector(".sopping__cart--items");
+const soppingCartTotal = document.querySelector(".sopping__cart--total");
+const shoppingRestBtn = document.querySelector(".product__button--rest");
+const shoppingAddBtn = document.querySelector(".product__button--add");
+const shoppingDelBtn = document.querySelector(".product__button--del");
 
 
 const products = [
@@ -50,19 +56,19 @@ const addProductsToDom =()=>{
 
 const productsOnHtml = (products) =>{
     productsContent.innerHTML = '';
-    products.forEach(element => {
+    products.forEach(({category, id, urlImage, price, name, stock}) => {
         let html = `
-                    <article class="product__card ${element.category}" id =${element.id}>
+                    <article class="product__card ${category}" id =${id}>
                         <div class="product__img--container">
-                            <img src=${element.urlImage} alt="product" class="product__img">
+                            <img src=${urlImage} alt="product" class="product__img">
                         </div>
                         <div class="product__info">
                             <h2 class="product__price">
-                                $${element.price}
-                                <span class="product__stock"> | Stock: ${element.stock}</span>
+                                $${price}
+                                <span class="product__stock"> | Stock: ${stock}</span>
                             </h2>
-                            <h3 class="product__name">${element.name}</h3>
-                            <button class="button product__button--add">+</button> 
+                            <h3 class="product__name">${name}</h3>
+                            <button class="button product__button--add" id =${id} >+</button>
                         </div>
                     </article>
                 `;
@@ -71,13 +77,67 @@ const productsOnHtml = (products) =>{
 }
 
 
+let shoppingCart = {};
+
+
+const printCart = () => {
+    let html = "";
+
+    const arrayShoppingCart = Object.values(shoppingCart)
+
+    arrayShoppingCart.forEach(({category, id, urlImage, price, name, amount, stock}) =>{
+        html += `
+        <article class="product__card--cart ${category}" id =${id}>
+            <div class="product__img--container--cart">
+                <img src=${urlImage} alt="product" class="product__img--cart">
+            </div>
+            <div class="product__info--cart">
+                <h3 class="product__name--cart">${name}</h3>
+                <div class="product__stock--cart">Cantidad: ${stock}
+                <span class="product__price--cart">
+                |$${price}</span>
+                <h3 class="subtotal">Subtotal: </h3>
+            </div>
+            <div class="counter__cart">
+                <div class="add__rest--btns">
+                    <button class="button product__button--add--cart" id =${id} >+</button>
+                    <span class="amount__card--cart amount">Units: ${amount}</span>
+                    <button class="button product__button--rest" id =${id} >-</button> 
+                </div>
+                <button class="button product__button--del" id =${id} ><i class='bx bx-trash'></i></button>
+            </div>        
+
+        </div>
+    </article>
+        `
+    })
+
+    soppingCartItems.innerHTML= html
+    
+
+}
+
+productsContent.addEventListener("click", (e) => {
+    if(e.target.classList.contains("product__button--add")){
+        const idProduct = Number(e.target.id);
+        const productCardShopping = products.find(products => products.id == idProduct)
+        if(shoppingCart[productCardShopping.id]) {
+            shoppingCart[productCardShopping.id].amount++;
+        }else{
+            shoppingCart[productCardShopping.id] = productCardShopping;
+            shoppingCart[productCardShopping.id].amount = 1;
+        };
+
+        printCart();
+    }
+})
+
 productsOnHtml(products)
 addProductsToDom();
 headerScroll();
 hideShowMenu(mobileMenuBtn);
 hideShowMenu(closeMenuBtn);
-
-
+showCart (shoppingCartBtn);
 
 
 
