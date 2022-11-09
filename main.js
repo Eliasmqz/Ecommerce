@@ -1,5 +1,6 @@
 import { headerScroll, hideShowMenu, showCart} from "./navbar.js";
-import { toUsd } from "./helpers.js";
+import { toUsd, loader } from "./helpers.js";
+
 const mobileMenuBtn = document.querySelector(".mobile__menu--btn");
 const closeMenuBtn = document.querySelector(".close__menu--btn");
 const productsContent = document.querySelector(".products__content");
@@ -10,7 +11,8 @@ const shoppingCartTotal = document.querySelector(".shopping__cart--total");
 const checkoutBtn = document.querySelector(".checkout__btn");
 const cartCounter = document.querySelector(".shopping__counter");
 const closeCartBtn = document.querySelector(".cart__close--btn");
-
+const navLinkHome = document.querySelector(".nav__link--home");
+const navLinkProducts = document.querySelector(".nav__link--products");
 
 
 let products = [
@@ -40,6 +42,8 @@ let products = [
     }
 ]
 
+let shoppingCart = {};
+
 const addProductsToDom =()=>{
     
     productsOnHtml(products);
@@ -61,7 +65,9 @@ const productsOnHtml = (products) =>{
     products.forEach(({category, id, urlImage, price, name, stock}) => {
         price = toUsd(price);
 
-
+        const notAvailable = stock?
+        `<button class="button product__button--add" id =${id} >+</button>`:
+        `<button class="button product__button--add no__stock">No Stock</button>`;
 
         let html = `
                     <article class="product__card ${category}" id =${id}>
@@ -74,7 +80,7 @@ const productsOnHtml = (products) =>{
                                 <span class="product__stock"> | Stock: ${stock}</span>
                             </h2>
                             <h3 class="product__name">${name}</h3>
-                            <button class="button product__button--add" id =${id} >+</button>
+                            ${notAvailable}
                         </div>
                     </article>
                 `;
@@ -82,8 +88,6 @@ const productsOnHtml = (products) =>{
     });
 }
 
-
-let shoppingCart = {};
 
 function addProduct(idProduct) {
     const productCardShopping = products.find(products => products.id == idProduct)
@@ -255,13 +259,9 @@ checkoutBtn.addEventListener("click", (e) => {
                         return product;
                     }
                 })
-                Swal.fire({
-                    position: 'top-mid',
-                    icon: 'success',
-                    title: 'Thanks for buying with us',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
+
+                swal("Thanks!", "Enjoy your products", "success");
+                
                 shoppingCart = {};
                 printCart();
                 addProductsToDom();
@@ -276,10 +276,15 @@ noDropCheckout ()
 productsOnHtml(products)
 addProductsToDom();
 headerScroll();
+
 hideShowMenu(mobileMenuBtn);
 hideShowMenu(closeMenuBtn);
+hideShowMenu(navLinkHome);
+hideShowMenu(navLinkProducts);
+
 showCart (closeCartBtn);
 showCart (shoppingCartBtn);
+loader();
 printTotal ()
 
 

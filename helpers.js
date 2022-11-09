@@ -7,7 +7,20 @@ return element = usDollar.format(element);
 
 }
 
+function loader () {
+    window.addEventListener("load", () => {
+        const loading = document.querySelector(".loading");
+    
+        setTimeout(() => {
+            loading.style.display = "none";
+        }, 4000);
+    })
+}
+
+
+
 
 export {
-    toUsd
+    toUsd,
+    loader
 }

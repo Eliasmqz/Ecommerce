@@ -11,7 +11,22 @@
 </head>
 <body>
     <div class="container">
-
+                <!-- LOADER -->
+                <div class="loading">
+                    <div class="load">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.92 56.48" class="load__gif">
+                            <title>Academlo Logo</title>
+                            <g>
+                              <g>
+                                <path d="M24.45,56.48,0,42.36V14.12L24.46,0,48.92,14.12V42.36ZM1.89,41.26l22.56,13L47,41.26v-26l-22.56-13-22.56,13Z">
+                                </path>
+                                <path d="M28.58,15.39H25.16L35.78,36H31.49L20.67,15.71,8.23,38.82H18.94l3-5.43h-3.4l-1.47,2.54h-4l2.69-5.09H25.85l4.28,8H40.67ZM17.23,28.21l3.57-6.6,3.57,6.6Z">
+                                </path>
+                              </g>
+                            </g>
+                          </svg>
+                    </div>
+                </div>
         <header>
             <!-- NAVIGATION BAR -->
             <nav>
@@ -34,10 +49,10 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
                                 </div>
                             <li class="nav__menu--item">
-                                <a href="#" class="nav__link">Home</a>
+                                <a href="#" class="nav__link--home">HOME</a>
                             </li>
                             <li class="nav__menu--item">
-                                <a href="#products" class="nav__link">Products</a>
+                                <a href="#products" class="nav__link--products">PRODUCTS</a>
                             </li>
                         </ul>
                 </div>
@@ -56,6 +71,7 @@
                 </div>
             </nav>
         </header>
+
         <!-- MAIN -->
         <main class="main">
             <!-- SECTION HOME -->
@@ -192,7 +208,9 @@
             </div>
         </footer>
     </div>
-    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./main.js" type="module"></script>
 </body>
+
+
 </html>

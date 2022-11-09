@@ -4,7 +4,7 @@ const shoppingCart = document.querySelector(".shopping__cart")
 
 function hideShowMenu (button) {
     button.addEventListener("click", () => {
-        navMenu.classList.toggle("nav__menu--show")
+      navMenu.classList.toggle("nav__menu--show");
     })
 }
 
@@ -29,9 +29,10 @@ function headerScroll () {
   }
 
 
+
   export {
     hideShowMenu,
     showCart,
-    headerScroll
+    headerScroll,
   }
 
