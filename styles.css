@@ -43,6 +43,14 @@ img {
     max-width: 100%;
 }
 
+::-webkit-scrollbar {
+    background: var(--light-gray);
+    width: 9px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--background-color-dark);
+}
+
 body{
     background-color: var(--background-color)  }
 
@@ -577,7 +585,7 @@ transition: background-color 0.5s;
     right: 0;
     z-index: 400;
     box-shadow: -11px 0px 28px -20px rgba(0,0,0,0.75);
-    transform: translateX(100%);
+    transform: translateX(120%);
     transition: transform 0.3s;
     display: flex;
     flex-direction: column;
