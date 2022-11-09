@@ -13,7 +13,7 @@ function loader () {
     
         setTimeout(() => {
             loading.style.display = "none";
-        }, 4000);
+        }, 3000);
     })
 }
 
