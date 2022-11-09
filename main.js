@@ -7,12 +7,12 @@ const productsFilter = document.querySelector(".products__filter");
 const shoppingCartBtn = document.querySelector(".shopping__bag");
 const shoppingCartItems = document.querySelector(".shopping__cart--items");
 const shoppingCartTotal = document.querySelector(".shopping__cart--total");
-const shoppingRestBtn = document.querySelector(".product__button--rest");
-const shoppingAddBtn = document.querySelector(".product__button--add");
-const shoppingDelBtn = document.querySelector(".product__button--del");
+const checkoutBtn = document.querySelector(".checkout__btn");
+const cartCounter = document.querySelector(".shopping__counter");
 
 
-const products = [
+
+let products = [
     {
         id: 1,
         name: "Hoodies",
@@ -79,6 +79,63 @@ const productsOnHtml = (products) =>{
 
 let shoppingCart = {};
 
+function addProduct(idProduct) {
+    const productCardShopping = products.find(products => products.id == idProduct)
+    if(productCardShopping.stock == shoppingCart[idProduct].amount)
+        return alert ("Not enough Stock");
+
+        shoppingCart[productCardShopping.id].amount++;
+}
+
+function noItems() {
+    const arrayShoppingCart = Object.values(shoppingCart);
+    if(!arrayShoppingCart.length) return shoppingCartItems.innerHTML = `
+
+    <div class="empty__cart" >
+        <img src="./src/images/empty-cart.png" alt="empty__cart" class="empty__cart--img">
+        <h2 class="empty__cart--title">Your cart is empty</h2>
+        <p class="empty__cart--text">You can add items to your cart by clicking on the "<i class='bx bx-plus' ></i>" button on the product page.</p>
+    </div>
+    `;
+    
+}
+
+function printTotal () {
+
+    const arrayShoppingCart = Object.values(shoppingCart);
+
+
+        let totalSum = arrayShoppingCart.reduce((acum, curr) =>{
+            acum += curr.price * curr.amount;
+    
+            return acum;
+        }, 0)
+        let totalItems = arrayShoppingCart.reduce((acum, curr) =>{ 
+            acum += curr.amount
+            return acum;
+        }, 0)
+        
+    
+        shoppingCartTotal.innerHTML = `
+        <div class="total__items">${totalItems} Item</div>
+        <div class="total__price"> $${totalSum}</div>
+        `;
+
+
+        noItems()
+}
+
+function bagCartCounter ()  {
+    const arrayShoppingCart = Object.values(shoppingCart);
+
+    let totalItems = arrayShoppingCart.reduce((acum, curr) =>{ 
+        acum += curr.amount
+        return acum;
+    }, 0)
+
+    cartCounter.innerHTML = `${totalItems}`
+
+}
 
 const printCart = () => {
     let html = "";
@@ -100,9 +157,9 @@ const printCart = () => {
             </div>
             <div class="counter__cart">
                 <div class="add__rest--btns">
-                    <button class="button product__button--add--cart" id =${id} >+</button>
+                    <button class="button product__button--rest" id =${id} >-</button>
                     <span class="amount__card--cart amount">Units: ${amount}</span>
-                    <button class="button product__button--rest" id =${id} >-</button> 
+                    <button class="button product__button--add--cart" id =${id} >+</button>
                 </div>
                 <button class="button product__button--del" id =${id} ><i class='bx bx-trash'></i></button>
             </div>        
@@ -113,22 +170,71 @@ const printCart = () => {
     })
 
     shoppingCartItems.innerHTML= html
-    
-
+    printTotal ();
+    bagCartCounter ();
 }
+
 
 productsContent.addEventListener("click", (e) => {
     if(e.target.classList.contains("product__button--add")){
         const idProduct = Number(e.target.id);
-        const productCardShopping = products.find(products => products.id == idProduct)
+        const productCardShopping = products.find((products) => products.id == idProduct)
         if(shoppingCart[productCardShopping.id]) {
-            shoppingCart[productCardShopping.id].amount++;
+            addProduct(idProduct)
         }else{
-            shoppingCart[productCardShopping.id] = productCardShopping;
+            shoppingCart[productCardShopping.id] = { ...productCardShopping };
             shoppingCart[productCardShopping.id].amount = 1;
         };
 
         printCart();
+    }
+})
+
+shoppingCartItems.addEventListener("click", (e) => {
+    if(e.target.classList.contains("product__button--add--cart")){
+            const idProduct = Number(e.target.id)
+            addProduct(idProduct)
+    };
+
+    if(e.target.classList.contains("product__button--rest")){
+        const idProduct = Number(e.target.id)
+        if(shoppingCart[idProduct].amount == 1) {
+            if(confirm ("Are you sure you wanna delete the item? ")){
+                delete shoppingCart[idProduct];
+            }
+        }else {
+            shoppingCart[idProduct].amount--;
+        }
+    }
+
+    if(e.target.parentElement.classList.contains("product__button--del")){
+        const idProduct = Number(e.target.parentElement.id)
+        if(confirm ("Are you sure you wanna delete the item? "))
+        delete shoppingCart[idProduct];
+    }
+
+    printCart();
+})
+
+checkoutBtn.addEventListener("click", (e) => {
+    if(e.target.classList.contains("checkout__btn")) {
+        const finalBuy = confirm ("Ni dinero tienes y quieres gastar, ¿Estás seguro?");
+        if(finalBuy) {
+            products = products.map(product => {
+                if(shoppingCart[product.id]?.id === product.id) {
+                    return {
+                        ... product,
+                        stock: product.stock - shoppingCart[product.id]?.amount,
+                    }
+                } else {
+                    return product;
+                }
+            })
+
+            shoppingCart = {};
+            printCart();
+            addProductsToDom();
+        }
     }
 })
 
@@ -138,6 +244,8 @@ headerScroll();
 hideShowMenu(mobileMenuBtn);
 hideShowMenu(closeMenuBtn);
 showCart (shoppingCartBtn);
+
+printTotal ()
 
 
 
