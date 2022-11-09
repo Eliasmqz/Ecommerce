@@ -1,5 +1,5 @@
 import { headerScroll, hideShowMenu, showCart} from "./navbar.js";
-
+import { toUsd } from "./helpers.js";
 const mobileMenuBtn = document.querySelector(".mobile__menu--btn");
 const closeMenuBtn = document.querySelector(".close__menu--btn");
 const productsContent = document.querySelector(".products__content");
@@ -9,6 +9,7 @@ const shoppingCartItems = document.querySelector(".shopping__cart--items");
 const shoppingCartTotal = document.querySelector(".shopping__cart--total");
 const checkoutBtn = document.querySelector(".checkout__btn");
 const cartCounter = document.querySelector(".shopping__counter");
+const closeCartBtn = document.querySelector(".cart__close--btn");
 
 
 
@@ -54,9 +55,14 @@ const addProductsToDom =()=>{
 
 }
 
+
 const productsOnHtml = (products) =>{
     productsContent.innerHTML = '';
     products.forEach(({category, id, urlImage, price, name, stock}) => {
+        price = toUsd(price);
+
+
+
         let html = `
                     <article class="product__card ${category}" id =${id}>
                         <div class="product__img--container">
@@ -64,7 +70,7 @@ const productsOnHtml = (products) =>{
                         </div>
                         <div class="product__info">
                             <h2 class="product__price">
-                                $${price}
+                                ${price}
                                 <span class="product__stock"> | Stock: ${stock}</span>
                             </h2>
                             <h3 class="product__name">${name}</h3>
@@ -115,10 +121,13 @@ function printTotal () {
             return acum;
         }, 0)
         
-    
+
+       totalSum = toUsd (Number(totalSum));
+
+
         shoppingCartTotal.innerHTML = `
         <div class="total__items">${totalItems} Item</div>
-        <div class="total__price"> $${totalSum}</div>
+        <div class="total__price"> ${totalSum}</div>
         `;
 
 
@@ -143,6 +152,9 @@ const printCart = () => {
     const arrayShoppingCart = Object.values(shoppingCart)
 
     arrayShoppingCart.forEach(({category, id, urlImage, price, name, amount, stock}) =>{
+
+        price = toUsd (price);
+
         html += `
         <article class="product__card--cart ${category}" id =${id}>
             <div class="product__img--container--cart">
@@ -152,7 +164,7 @@ const printCart = () => {
                 <h3 class="product__name--cart">${name}</h3>
                 <div class="product__stock--cart">Cantidad: ${stock}
                 <span class="product__price--cart">
-                |$${price}</span>
+                |${price}</span>
                 <h3 class="subtotal">Subtotal: </h3>
             </div>
             <div class="counter__cart">
@@ -172,8 +184,18 @@ const printCart = () => {
     shoppingCartItems.innerHTML= html
     printTotal ();
     bagCartCounter ();
+    noDropCheckout ();
 }
 
+function noDropCheckout () {
+    let arrayShoppingCart = Object.values(shoppingCart);
+    if (arrayShoppingCart.length == 0){
+        checkoutBtn.classList.add("no__drop--checkout");
+    }
+    else{
+        checkoutBtn.classList.remove("no__drop--checkout");
+    }
+}
 
 productsContent.addEventListener("click", (e) => {
     if(e.target.classList.contains("product__button--add")){
@@ -212,40 +234,54 @@ shoppingCartItems.addEventListener("click", (e) => {
         if(confirm ("Are you sure you wanna delete the item? "))
         delete shoppingCart[idProduct];
     }
-
     printCart();
 })
 
 checkoutBtn.addEventListener("click", (e) => {
-    if(e.target.classList.contains("checkout__btn")) {
-        const finalBuy = confirm ("Ni dinero tienes y quieres gastar, ¿Estás seguro?");
-        if(finalBuy) {
-            products = products.map(product => {
-                if(shoppingCart[product.id]?.id === product.id) {
-                    return {
-                        ... product,
-                        stock: product.stock - shoppingCart[product.id]?.amount,
+    let arrayShoppingCart = Object.values(shoppingCart);
+    if(arrayShoppingCart.length){
+        if(e.target.classList.contains("checkout__btn")) {
+            const finalBuy = confirm ("Ni dinero tienes y quieres gastar, ¿Estás seguro?");
+            if(finalBuy) {
+                products = products.map(product => {
+                    if(shoppingCart[product.id]?.id === product.id) {
+                        return {
+                            ... product,
+                            stock: product.stock - shoppingCart[product.id]?.amount,
+                            
+                        } 
+                        
+                    } else {
+                        return product;
                     }
-                } else {
-                    return product;
-                }
-            })
+                })
+                Swal.fire({
+                    position: 'top-mid',
+                    icon: 'success',
+                    title: 'Thanks for buying with us',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                shoppingCart = {};
+                printCart();
+                addProductsToDom();
+            }
+    }
 
-            shoppingCart = {};
-            printCart();
-            addProductsToDom();
-        }
     }
 })
 
+
+noDropCheckout ()
 productsOnHtml(products)
 addProductsToDom();
 headerScroll();
 hideShowMenu(mobileMenuBtn);
 hideShowMenu(closeMenuBtn);
+showCart (closeCartBtn);
 showCart (shoppingCartBtn);
-
 printTotal ()
+
 
 
 

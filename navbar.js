@@ -1,6 +1,7 @@
 const navMenu = document.querySelector(".nav__menu");
 const shoppingCart = document.querySelector(".shopping__cart")
 
+
 function hideShowMenu (button) {
     button.addEventListener("click", () => {
         navMenu.classList.toggle("nav__menu--show")

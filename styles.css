@@ -526,7 +526,7 @@ transition: background-color 0.5s;
     position:fixed;
     top:0;
     right: 0;
-    z-index: 100;
+    z-index: 400;
     box-shadow: -11px 0px 28px -20px rgba(0,0,0,0.75);
     transform: translateX(100%);
     transition: transform 0.3s;
@@ -542,6 +542,13 @@ transition: background-color 0.5s;
     
 }
 
+.cart__close--btn {
+    font-size: 3rem;
+    align-self: flex-end;
+    justify-self: flex-start;
+    margin-top: -7rem;
+    cursor: pointer;
+}
 
 
 .shopping__cart--title {
@@ -612,6 +619,13 @@ transition: background-color 0.5s;
     font-weight: var(--font-medium);
     padding: 1rem 2rem;
     cursor: pointer;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.no__drop--checkout{
+    cursor: no-drop;
+    background-color: rgb(240, 240, 240);
+    color: var(--light-gray);
 }
 .product__card--cart {
     display: flex;
